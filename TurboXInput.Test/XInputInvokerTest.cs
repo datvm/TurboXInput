@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using TurboXInput.Core;
 using Xunit;
@@ -23,7 +24,7 @@ namespace TurboXInput.Test
             var result = new XInputCapabilities();
             var opResult = XInputInvoker.XInputGetCapabilities(index, XInputGetCapabilitiesFlag.XINPUT_FLAG_GAMEPAD, ref result);
 
-            Assert.Equal(XInputGetCapabilitiesResult.ERROR_SUCCESS, opResult);
+            Assert.Equal(XInputOpResult.Success, opResult);
         }
 
         [Theory]
@@ -35,7 +36,17 @@ namespace TurboXInput.Test
             var result = new XInputCapabilities();
             var opResult = XInputInvoker.XInputGetCapabilities(index, XInputGetCapabilitiesFlag.XINPUT_FLAG_GAMEPAD, ref result);
 
-            Assert.Equal(XInputGetCapabilitiesResult.ERROR_DEVICE_NOT_CONNECTED, opResult);
+            Assert.Equal(XInputOpResult.Error_DeviceNotConnected, opResult);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        public void ShouldGetCurrentState(uint index)
+        {
+            var result = new XInputState();
+            var opResult = XInputInvoker.XInputGetState(index, ref result);
+
+            Assert.Equal(XInputOpResult.Success, opResult);
         }
 
     }

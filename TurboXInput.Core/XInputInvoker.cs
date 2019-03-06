@@ -14,15 +14,25 @@ namespace TurboXInput.Core
         public static extern void XInputEnable(bool enabled);
 
         [DllImport(XInputDllName)]
-        public static extern XInputGetCapabilitiesResult XInputGetCapabilities(uint dwUserIndex, XInputGetCapabilitiesFlag dwFlags, ref XInputCapabilities pCapabilities);
+        public static extern XInputOpResult XInputGetCapabilities(uint dwUserIndex, XInputGetCapabilitiesFlag dwFlags, ref XInputCapabilities pCapabilities);
+
+        [DllImport(XInputDllName)]
+        public static extern XInputOpResult XInputGetState(uint dwUserIndex, ref XInputState pState);
 
     }
 
-    [Flags]
-    public enum XInputGetCapabilitiesResult : uint
+    [StructLayout(LayoutKind.Sequential)]
+    public struct XInputState
     {
-        ERROR_SUCCESS = 0,
-        ERROR_DEVICE_NOT_CONNECTED = 0x48F,
+        public uint dwPacketNumber;
+        public XInputGamepad GamePad;
+    }
+
+    [Flags]
+    public enum XInputOpResult : uint
+    {
+        Success = 0,
+        Error_DeviceNotConnected = 0x48F,
     }
 
     [Flags]
@@ -34,9 +44,9 @@ namespace TurboXInput.Core
     [StructLayout(LayoutKind.Sequential)]
     public struct XInputCapabilities
     {
-        public byte Type;
-        public byte SubType;
-        public ushort Flags;
+        public XInputDeviceTypeFlag Type;
+        public XInputDeviceSubtypeFlag SubType;
+        public XInputCapabilitiesFlag Flags;
         public XInputGamepad Gamepad;
         public XInputVibration Vibration;
 
@@ -52,6 +62,26 @@ namespace TurboXInput.Core
 
     }
 
+    public enum XInputDeviceTypeFlag : byte
+    {
+        XINPUT_DEVTYPE_GAMEPAD,
+    }
+
+    public enum XInputDeviceSubtypeFlag : byte
+    {
+        XINPUT_DEVSUBTYPE_UNKNOWN,
+        XINPUT_DEVSUBTYPE_GAMEPAD,
+        XINPUT_DEVSUBTYPE_WHEEL,
+        XINPUT_DEVSUBTYPE_ARCADE_STICK,
+        XINPUT_DEVSUBTYPE_FLIGHT_STICK,
+        XINPUT_DEVSUBTYPE_DANCE_PAD,
+        XINPUT_DEVSUBTYPE_GUITAR,
+        XINPUT_DEVSUBTYPE_GUITAR_ALTERNATE,
+        XINPUT_DEVSUBTYPE_GUITAR_BASS,
+        XINPUT_DEVSUBTYPE_DRUM_KIT,
+        XINPUT_DEVSUBTYPE_ARCADE_PAD,
+    }
+
     [StructLayout(LayoutKind.Sequential)]
     public struct XInputGamepad
     {
@@ -64,7 +94,7 @@ namespace TurboXInput.Core
         short sThumbRY;
 
         [Flags]
-        public enum XInputGamepadFlag
+        public enum XInputGamepadFlag : ushort
         {
             DPadUp = 0x00000001,
             DPadDown = 0x00000002,
