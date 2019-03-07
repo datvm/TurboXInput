@@ -43,9 +43,9 @@ namespace TurboXInput.Core
                 case XInputOpResult.Success:
                     return result;
                 case XInputOpResult.Error_DeviceNotConnected:
-                    throw new TurboInputException(TurboInputExceptionCode.DeviceNotConnected);
+                    throw new TurboXInputException(TurboXInputExceptionCode.DeviceNotConnected);
                 default:
-                    throw new TurboInputException(TurboInputExceptionCode.UnexpectedError, "Error Code: " + opResult.ToString());
+                    throw new TurboXInputException(TurboXInputExceptionCode.UnexpectedError, "Error Code: " + opResult.ToString());
             }
         }
 

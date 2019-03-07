@@ -5,21 +5,21 @@ using System.Text;
 
 namespace TurboXInput.Core
 {
-    public class TurboInputException : Exception
+    public class TurboXInputException : Exception
     {
-        public TurboInputExceptionCode ErrorCode { get; private set; }
+        public TurboXInputExceptionCode ErrorCode { get; private set; }
 
-        public TurboInputException(TurboInputExceptionCode errorCode)
+        public TurboXInputException(TurboXInputExceptionCode errorCode)
         {
             this.ErrorCode = errorCode;
         }
 
-        public TurboInputException(TurboInputExceptionCode errorCode, string message) : base(message)
+        public TurboXInputException(TurboXInputExceptionCode errorCode, string message) : base(message)
         {
             this.ErrorCode = errorCode;
         }
 
-        public TurboInputException(TurboInputExceptionCode errorCode, string message, Exception innerException) : base(message, innerException)
+        public TurboXInputException(TurboXInputExceptionCode errorCode, string message, Exception innerException) : base(message, innerException)
         {
             this.ErrorCode = errorCode;
         }
@@ -30,9 +30,10 @@ namespace TurboXInput.Core
         }
     }
 
-    public enum TurboInputExceptionCode
+    public enum TurboXInputExceptionCode
     {
         DeviceNotConnected = 1,
+        FailedToAcquireVJoy = 2,
         UnexpectedError = 999,
     }
 }

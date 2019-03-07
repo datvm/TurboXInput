@@ -16,4 +16,10 @@
     <ProjectReference Include="..\TurboXInput.Core\TurboXInput.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="vJoyInterfaceWrap">
+      <HintPath>..\Libs\vJoyInterfaceWrap.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
