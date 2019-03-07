@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 namespace TurboXInput.App.Models.ViewModels
 {
 
-    public class XBoxControllerViewModel
+    public class GameControllerViewModel
     {
 
 
         public uint Id { get; set; }
         public string Name { get; set; }
 
-        public XBoxControllerViewModel()
+        public GameControllerViewModel()
         {
         }
 
-        public XBoxControllerViewModel(uint id, string name)
+        public GameControllerViewModel(uint id, string name)
         {
             this.Id = id;
             this.Name = name ?? throw new ArgumentNullException(nameof(name));
@@ -29,5 +29,6 @@ namespace TurboXInput.App.Models.ViewModels
             return this.Name;
         }
     }
+
 
 }

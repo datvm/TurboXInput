@@ -24,6 +24,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -31,7 +32,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
-            <Button Content="Refresh" HorizontalAlignment="Center" Click="OnRefreshButtonClick"/>
+            <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Center" Click="OnRefreshButtonClick"/>
         </StackPanel>
 
         <DockPanel Grid.Row="1" Grid.Column="0">
@@ -46,6 +47,9 @@
             <ComboBox x:Name="cboVJoyController" />
         </DockPanel>
 
-        <TextBlock x:Name="lblXBoxStatus" Grid.Row="2" Grid.Column="0" FontFamily="Consolas">Getting Controller input state...</TextBlock>
+        <TextBlock x:Name="lblXBoxStatus" Grid.Row="2" Grid.Column="0" FontFamily="Consolas">Getting XBox Controller input state...</TextBlock>
+        <TextBlock x:Name="lblVJoyStatus" Grid.Row="2" Grid.Column="1" FontFamily="Consolas">Getting VJoy Controller input state...</TextBlock>
+        
+        <Button x:Name="btnMap" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Map" HorizontalAlignment="Center" Click="OnMapButtonClick" />
     </Grid>
 </Window>

@@ -8,11 +8,11 @@ namespace TurboXInput.Core
     public static class XInputExtensions
     {
 
-        public static IEnumerable<XInputGamepadFlag> GetIncludedButtons(this XInputGamepadFlag buttons)
+        public static IEnumerable<XInputGamepadButton> GetIncludedButtons(this XInputGamepadButton buttons)
         {
-            var result = new List<XInputGamepadFlag>();
+            var result = new List<XInputGamepadButton>();
 
-            foreach (XInputGamepadFlag button in Enum.GetValues(typeof(XInputGamepadFlag)))
+            foreach (XInputGamepadButton button in Enum.GetValues(typeof(XInputGamepadButton)))
             {
                 if (buttons.HasFlag(button))
                 {
@@ -23,7 +23,7 @@ namespace TurboXInput.Core
             return result;
         }
 
-        public static bool HasButton(this XInputGamepadFlag buttons, XInputGamepadFlag button)
+        public static bool HasButton(this XInputGamepadButton buttons, XInputGamepadButton button)
         {
             return (ushort)(buttons & button) == 1;
         }

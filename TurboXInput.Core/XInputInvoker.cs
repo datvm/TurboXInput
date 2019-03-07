@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -8,6 +9,8 @@ namespace TurboXInput.Core
 
     public static class XInputInvoker
     {
+        public static readonly XInputGamepadButton[] AllButtons = Enum.GetValues(typeof(XInputGamepadButton)).Cast<XInputGamepadButton>().ToArray();
+
         private const string XInputDllName = "XINPUT1_4.DLL";
 
         [DllImport(XInputDllName)]
@@ -85,7 +88,7 @@ namespace TurboXInput.Core
     [StructLayout(LayoutKind.Sequential)]
     public struct XInputGamepad
     {
-        public XInputGamepadFlag wButtons;
+        public XInputGamepadButton wButtons;
         public byte bLeftTrigger;
         public byte bRightTrigger;
         public short sThumbLX;
@@ -95,7 +98,7 @@ namespace TurboXInput.Core
     }
 
     [Flags]
-    public enum XInputGamepadFlag : ushort
+    public enum XInputGamepadButton : ushort
     {
         DPadUp = 0x00000001,
         DPadDown = 0x00000002,
