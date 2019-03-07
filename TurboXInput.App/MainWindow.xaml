@@ -22,6 +22,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -44,5 +45,7 @@
 
             <ComboBox x:Name="cboVJoyController" />
         </DockPanel>
+
+        <TextBlock x:Name="lblXBoxStatus" Grid.Row="2" Grid.Column="0" FontFamily="Consolas">Getting Controller input state...</TextBlock>
     </Grid>
 </Window>

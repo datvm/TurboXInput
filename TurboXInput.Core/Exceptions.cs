@@ -24,6 +24,10 @@ namespace TurboXInput.Core
             this.ErrorCode = errorCode;
         }
 
+        public override string ToString()
+        {
+            return $"{(int) this.ErrorCode} {this.ErrorCode.ToString()}";
+        }
     }
 
     public enum TurboInputExceptionCode

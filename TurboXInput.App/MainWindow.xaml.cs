@@ -66,10 +66,48 @@ namespace TurboXInput.App
 
                 if (xboxController != null)
                 {
-                    var state = this.xInputService.GetControllerState(xboxController.Id);
-                    Debug.WriteLine(state);
+                    try
+                    {
+                        var state = this.xInputService.GetControllerState(xboxController.Id);
+                        await this.ShowXBoxState(state, null);
+                    }
+                    catch (Exception ex)
+                    {
+                        await this.ShowXBoxState(null, ex);
+                    }
+                    
                 }
             }
+        }
+
+        private async Task ShowXBoxState(XInputState? state, Exception ex)
+        {
+            if (ex != null)
+            {
+                await this.Dispatcher.InvokeAsync(() =>
+                {
+                    this.lblXBoxStatus.Text = ex.ToString();
+                });
+
+                return;
+            }
+
+            var result = new StringBuilder();
+            var gamepad = state.Value.GamePad;
+
+            result.AppendLine($"Left Trigger : ({gamepad.bLeftTrigger})");
+            result.AppendLine($"Right Trigger: ({gamepad.bRightTrigger})");
+
+            result.AppendLine($"Left Thumb   : ({gamepad.sThumbLX} ; {gamepad.sThumbLY})");
+            result.AppendLine($"Right Thumb  : ({gamepad.sThumbRX} ; {gamepad.sThumbRY})");
+
+            var buttons = gamepad.wButtons.GetIncludedButtons();
+            result.AppendLine($"Buttons      : {string.Join(", ", buttons)}");
+
+            await this.Dispatcher.InvokeAsync(() =>
+            {
+                this.lblXBoxStatus.Text = result.ToString();
+            });
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -90,7 +128,7 @@ namespace TurboXInput.App
                     {
                         Debug.WriteLine(ex);
                     }
-                    
+
                 }
             });
         }
